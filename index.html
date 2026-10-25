@@ -12,7 +12,6 @@
     />
 
     <meta name="robots" content="index, follow, max-image-preview:large" />
-
     <link rel="canonical" href="https://davideo.online/" />
 
     <link
@@ -21,7 +20,6 @@
       sizes="32x32"
       href="assets/images/favicon.png?v=2"
     />
-
     <link
       rel="shortcut icon"
       type="image/png"
@@ -31,24 +29,19 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:site_name" content="Да, видео" />
-
     <meta
       property="og:title"
       content="Да, видео — видеопродакшн и видеоконсалтинг"
     />
-
     <meta
       property="og:description"
       content="Видеоконсалтинг, продюсирование YouTube-каналов, разработка видеоформатов, сценарии, Shorts и прямые трансляции."
     />
-
     <meta property="og:url" content="https://davideo.online/" />
-
     <meta
       property="og:image"
       content="https://davideo.online/assets/images/og-cover.jpg"
     />
-
     <meta
       property="og:image:alt"
       content="Да, видео — видеопродакшн и видеоконсалтинг"
@@ -56,13 +49,13 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
     <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=IBM+Plex+Sans:wght@300;500&display=swap"
       rel="stylesheet"
     />
 
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/checklist-feature.css" />
 
     <script type="application/ld+json">
       {
@@ -105,16 +98,6 @@
         >
           ОБСУДИТЬ ПРОЕКТ ↗
         </a>
-
-        <a
-          class="checklist-link"
-          href="assets/docs/checklist.pdf"
-          download="davideo-checklist.pdf"
-          type="application/pdf"
-          aria-label="Скачать чек-лист в формате PDF"
-        >
-          получить чек-лист ↓
-        </a>
       </div>
 
       <div class="center-cross" aria-hidden="true"></div>
@@ -140,15 +123,29 @@
           <span class="nav-dot"></span>
         </a>
 
+        <!-- Новая точка на вершине круга: услуги -->
+        <a class="nav-item nav-item--services" href="services.html">
+          <span class="nav-dot"></span>
+          <span class="nav-label">услуги</span>
+        </a>
+
         <a class="nav-item nav-item--about" href="about.html">
           <span class="nav-dot"></span>
           <span class="nav-label">обо мне/студии</span>
         </a>
 
-        <a class="nav-item nav-item--services" href="services.html">
+        <!-- Правая точка теперь открывает окно с чек-листом -->
+        <button
+          class="nav-item nav-item--checklist"
+          id="checklistTrigger"
+          type="button"
+          aria-haspopup="dialog"
+          aria-controls="checklistOverlay"
+          aria-expanded="false"
+        >
           <span class="nav-dot"></span>
-          <span class="nav-label">услуги</span>
-        </a>
+          <span class="nav-label">бесплатный чек-лист</span>
+        </button>
       </nav>
 
       <div class="contacts-popup" id="contactsPopup">
@@ -171,7 +168,6 @@
           >
             написать в telegram ↗
           </a>
-
           <a
             href="https://wa.me/79885859560"
             target="_blank"
@@ -182,6 +178,61 @@
         </div>
       </div>
     </main>
+
+    <!-- Минималистичное окно чек-листа. Открывается только по нажатию точки. -->
+    <div class="checklist-overlay" id="checklistOverlay" hidden>
+      <section
+        class="checklist-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="checklistTitle"
+        aria-describedby="checklistDescription"
+      >
+        <button
+          class="checklist-close"
+          id="checklistClose"
+          type="button"
+          aria-label="Закрыть окно чек-листа"
+        >
+          ×
+        </button>
+
+        <div class="checklist-dialog__content">
+          <h2 class="checklist-title" id="checklistTitle">
+            ЧТО НУЖНО<br />ДЛЯ ХОРОШЕГО<br />ВИДЕО?
+          </h2>
+
+          <p class="checklist-description" id="checklistDescription">
+            Чек-лист для YouTube: от названия и превью до аналитики первых
+            суток. Всё важное перед публикацией — в одном PDF.
+          </p>
+
+          <a
+            class="checklist-download"
+            href="assets/docs/checklist.pdf"
+            download="davideo-checklist.pdf"
+          >
+            СКАЧАТЬ ЧЕК-ЛИСТ ↗
+          </a>
+        </div>
+
+        <div class="checklist-dialog__preview" aria-hidden="true">
+          <div class="checklist-paper">
+            <div class="checklist-paper__top">
+              <span>ДА, ВИДЕО</span>
+              <span>01 / 04</span>
+            </div>
+            <p class="checklist-paper__title">
+              ЧТО НУЖНО<br />ДЛЯ ХОРОШЕГО<br />ВИДЕО
+            </p>
+            <p class="checklist-paper__caption">ЧЕК-ЛИСТ / YOUTUBE</p>
+            <div class="checklist-paper__lines">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
 
     <div class="analytics-consent" id="analyticsConsent">
       <p class="analytics-consent__text">
@@ -198,5 +249,65 @@
     </div>
 
     <script src="js/main.js"></script>
+
+    <!-- Скрипт только для главной: main.js остальных страниц не меняем. -->
+    <script>
+      (() => {
+        const trigger = document.getElementById('checklistTrigger');
+        const overlay = document.getElementById('checklistOverlay');
+        const closeButton = document.getElementById('checklistClose');
+        const dialog = overlay?.querySelector('.checklist-dialog');
+
+        if (!trigger || !overlay || !closeButton || !dialog) return;
+
+        const getFocusable = () =>
+          Array.from(
+            dialog.querySelectorAll('button:not([disabled]), a[href]'),
+          );
+
+        function openChecklist() {
+          overlay.hidden = false;
+          trigger.setAttribute('aria-expanded', 'true');
+          closeButton.focus();
+        }
+
+        function closeChecklist() {
+          overlay.hidden = true;
+          trigger.setAttribute('aria-expanded', 'false');
+          trigger.focus();
+        }
+
+        trigger.addEventListener('click', openChecklist);
+        closeButton.addEventListener('click', closeChecklist);
+
+        overlay.addEventListener('click', (event) => {
+          if (event.target === overlay) closeChecklist();
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (overlay.hidden) return;
+
+          if (event.key === 'Escape') {
+            event.preventDefault();
+            closeChecklist();
+            return;
+          }
+
+          if (event.key === 'Tab') {
+            const elements = getFocusable();
+            const first = elements[0];
+            const last = elements[elements.length - 1];
+
+            if (event.shiftKey && document.activeElement === first) {
+              event.preventDefault();
+              last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+              event.preventDefault();
+              first.focus();
+            }
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
