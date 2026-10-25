@@ -3256,3 +3256,21 @@ body:has(.cases-page) {
     transform: translateX(-50%);
   }
 }
+/* БЕСПЛАТНЫЙ ЧЕК-ЛИСТ — МОБИЛЬНАЯ ВЕРСИЯ */
+
+@media (max-width: 768px) {
+  .hero-navigation .nav-item--checklist {
+    position: absolute;
+    left: 50%;
+    right: auto;
+    top: 76dvh;
+    bottom: auto;
+
+    transform: translate(-50%, -50%);
+    flex-direction: column-reverse;
+    gap: 2vw;
+
+    white-space: nowrap;
+    z-index: 10;
+  }
+}
